@@ -1,6 +1,6 @@
 # Welcome to Roboctopi's FTC 2018 submission!
 ## Who are we?
-Hello, we’re Team Roboctopi, a small independent (not affiliated with any school or organization) robotics team in Southern California competing in the 2018-2019 First Tech Challenge(FTC): Rover Ruckus.
+Hello, we’re Team Roboctopi, a small independent (not affiliated with any school or organization) robotics team in Southern California competing in the 2018-2019 First Tech Challenge(FTC): Rover Ruckus . We’ve spent the last 2 years building our skills by participating in First Lego League(FLL)  robotics competition and now, we’re ready to move up to the next level. But, we need your help.
 ## Our Team
 * Seth (me): My name is Seth. I am an 11-year-old who loves to code. I also like fixing devices and playing on my Nintendo Switch. I know 7 computer languages. I just joined the team this year and I'm excited to start.
 * Logan: My name is Logan. I just started junior high school. I love cats, programming and playing piano. My other interests are Physics, Encryption and AI neural nets. I also like to play Kerbal Space Program.

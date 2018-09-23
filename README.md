@@ -13,4 +13,4 @@ Hello, we’re Team Roboctopi, a small independent (not affiliated with any scho
 This project is the code for our robot that we are using to compete in FTC.
 
 ## Donations
-Here at Team Roboctopi Headquarters we have a saying, “We’re here to chew bubblegum and build robots, and we can’t afford bubblegum.” Go to [Our GoFundMe Page](https://www.gofundme.com/help-team-roboctopi-get-started) if you would like to help us buy bubblegum (and robot parts).
+Here at Team Roboctopi Headquarters we have a saying, “We’re here to chew bubblegum and build robots, but we can’t afford bubblegum.” Go to [Our GoFundMe Page](https://www.gofundme.com/help-team-roboctopi-get-started) if you would like to help us buy bubblegum (and robot parts).

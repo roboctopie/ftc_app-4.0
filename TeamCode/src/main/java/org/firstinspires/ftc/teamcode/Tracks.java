@@ -80,7 +80,7 @@ public class Tracks extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            motor_a.setPower(1);
+            motor_a.setPower(gamepad1.left_stick_y);
 
 
 

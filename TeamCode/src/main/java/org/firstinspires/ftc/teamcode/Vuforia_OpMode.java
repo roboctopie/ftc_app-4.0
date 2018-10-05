@@ -47,7 +47,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 @TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
 //@Disabled
-public class VuforiaOp extends LinearOpMode {
+public class Vuforia_OpMode extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();

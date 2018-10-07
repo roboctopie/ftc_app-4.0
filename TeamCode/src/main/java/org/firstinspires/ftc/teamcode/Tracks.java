@@ -32,6 +32,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -48,13 +50,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
-@Disabled
+@TeleOp(name="Traccks", group="Linear Opmode")
+//@Disabled
 public class Tracks extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-
+    DcMotor RightMotor;
+    DcMotor LeftMotor;
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -63,8 +66,9 @@ public class Tracks extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-
-
+        RightMotor = hardwareMap.dcMotor.get("motor_right");
+        LeftMotor = hardwareMap.dcMotor.get("motor_left");
+        LeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // Most robots need the motor on one side to be reversed to drive forward
@@ -75,9 +79,11 @@ public class Tracks extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
+            RightMotor.setPower(gamepad1.left_stick_y-gamepad1.right_stick_x);
+            LeftMotor.setPower(gamepad1.left_stick_y+gamepad1.right_stick_x);
 
 
 

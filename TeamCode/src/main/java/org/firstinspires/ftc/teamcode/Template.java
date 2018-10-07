@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
 @Disabled
-public class Template_OpMode extends LinearOpMode {
+public class Template extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -67,10 +67,8 @@ public class Template_OpMode extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
 
 
-
-
         // Most robots need the motor on one side to be reversed to drive forward
-
+        // Reverse the motor that runs backwards when connected directly to the battery
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -79,9 +77,6 @@ public class Template_OpMode extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
-
-
 
             telemetry.update();
         }

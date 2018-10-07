@@ -63,6 +63,9 @@ public class Vuforia_OpMode extends LinearOpMode {
         VuforiaLocalizer vuforia = ClassFactory.createVuforiaLocalizer(params);
         Vuforia.setHint(HINT.HINT_MAX_SIMULTANEOUS_OBJECT_TARGETS,5);
 
+
+
+
         VuforiaTrackables minerals = vuforia.loadTrackablesFromAsset("roboctipi ");
         minerals.get(0).setName("gold");
         // Wait for the game to start (driver presses PLAY)

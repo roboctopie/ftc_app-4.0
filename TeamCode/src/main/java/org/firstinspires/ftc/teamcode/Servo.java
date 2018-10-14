@@ -29,19 +29,14 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.drawable.GradientDrawable;
-
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -57,40 +52,22 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="IMU TEST!!", group="Linear Opmode")
+@TeleOp(name="motor", group="Linear Opmode")
 //@Disabled
-public class IMU_Test extends LinearOpMode {
+public class Servo extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    BNO055IMU imu;
-    DcMotor RightMotor;
-    DcMotor LeftMotor;
-
+    DcMotor motor_a;
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' mu st correspond to the names assigned during the robot configuration
+        // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        RightMotor = hardwareMap.dcMotor.get("motor_right");
-        LeftMotor = hardwareMap.dcMotor.get("motor_left");
-        LeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled = true;
-        parameters.loggingTag = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
-        // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
-        // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
-        // and named "imu".
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+        motor_a = hardwareMap.dcMotor.get("motor");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -102,33 +79,18 @@ public class IMU_Test extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            Orientation angles = imu.getAngularOrientation();
+            motor_a.setTargetPosition(1450*5);
+            goToTargetPosition(motor_a);
+            telemetry.addData("Pos: ",motor_a.getCurrentPosition());
+            telemetry.addData("Pos: ",motor_a.getTargetPosition());
             telemetry.update();
         }
     }
-    public static void Turn(float degrees, DcMotor right_Motor,DcMotor left_Motor,BNO055IMU imu)
+    public static void goToTargetPosition(DcMotor motor)
     {
-        Orientation angles = imu.getAngularOrientation();
-        degrees = (360%(degrees + angles.firstAngle))/360;
-        while(angles.firstAngle>degrees+3 & angles.firstAngle<degrees+3)
+        while(motor.getCurrentPosition()> motor.getTargetPosition()+10 || motor.getCurrentPosition()> motor.getTargetPosition()-10)
         {
-            angles = imu.getAngularOrientation();
-            right_Motor.setPower((0-angles.firstAngle)-degrees);
-            left_Motor.setPower((angles.firstAngle)-degrees);
+            motor.setPower(((1/1-Math.pow(2.71,(0-((motor.getTargetPosition()-motor.getCurrentPosition())/5000))))*2)-1);
         }
-
-    }
-    public static void Forward(float power, DcMotor right_Motor,DcMotor left_Motor,BNO055IMU imu)
-    {
-        Orientation angles = imu.getAngularOrientation();
-        power = power/100;
-        float degrees = angles.firstAngle/360;
-        while(angles.firstAngle>degrees+3 & angles.firstAngle<degrees+3)
-        {
-            angles = imu.getAngularOrientation();
-            right_Motor.setPower(power+((0-angles.firstAngle)-degrees));
-            left_Motor.setPower(power+((angles.firstAngle)-degrees));
-        }
-
     }
 }

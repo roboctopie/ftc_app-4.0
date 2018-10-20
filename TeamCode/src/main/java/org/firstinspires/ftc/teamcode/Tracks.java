@@ -58,6 +58,7 @@ public class Tracks extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     DcMotor RightMotor;
     DcMotor LeftMotor;
+    DcMotor Arm;
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -68,6 +69,7 @@ public class Tracks extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         RightMotor = hardwareMap.dcMotor.get("motor_right");
         LeftMotor = hardwareMap.dcMotor.get("motor_left");
+        Arm = hardwareMap.dcMotor.get("arm");
         LeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -84,7 +86,18 @@ public class Tracks extends LinearOpMode {
         while (opModeIsActive()) {
             RightMotor.setPower(gamepad1.left_stick_y-gamepad1.right_stick_x);
             LeftMotor.setPower(gamepad1.left_stick_y+gamepad1.right_stick_x);
-
+            if(gamepad1.dpad_up)
+            {
+                Arm.setPower(0.7);
+            }
+            else if(gamepad1.dpad_down)
+            {
+                Arm.setPower(-0.7);
+            }
+            else
+            {
+                Arm.setPower(0);
+            }
 
 
             telemetry.update();

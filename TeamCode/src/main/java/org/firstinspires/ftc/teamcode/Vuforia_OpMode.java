@@ -46,7 +46,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
 @TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class Vuforia_OpMode extends LinearOpMode {
 
     // Declare OpMode members.

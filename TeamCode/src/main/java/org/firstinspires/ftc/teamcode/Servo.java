@@ -35,10 +35,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
-import java.util.concurrent.TimeUnit;
-
-
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
  * the autonomous or the TeleOp period of an FTC match. The names of OpModes appear on the menu
@@ -53,7 +49,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 @TeleOp(name="motor", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class Servo extends LinearOpMode {
 
     // Declare OpMode members.
@@ -79,18 +75,38 @@ public class Servo extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            motor_a.setTargetPosition(1450*5);
-            goToTargetPosition(motor_a);
+            motor_a.setTargetPosition(1450*4);
+            motor_a.setPower(gamepad1.left_stick_y);
             telemetry.addData("Pos: ",motor_a.getCurrentPosition());
             telemetry.addData("Pos: ",motor_a.getTargetPosition());
             telemetry.update();
         }
     }
-    public static void goToTargetPosition(DcMotor motor)
+    public void goToTargetPosition(DcMotor motor)
     {
-        while(motor.getCurrentPosition()> motor.getTargetPosition()+10 || motor.getCurrentPosition()> motor.getTargetPosition()-10)
+        while(motor.getCurrentPosition()< motor.getTargetPosition()-10 || motor.getCurrentPosition()> motor.getTargetPosition()+10)
         {
-            motor.setPower(((1/1-Math.pow(2.71,(0-((motor.getTargetPosition()-motor.getCurrentPosition())/5000))))*2)-1);
+            motor.setPower(((1/1-Math.pow(1.2,(0-((motor.getTargetPosition()-motor.getCurrentPosition())/5 ))))*2)-1);
+            telemetry.addData("Pos: ",motor_a.getCurrentPosition());
+            telemetry.addData("Pos: ",motor_a.getTargetPosition());
+            telemetry.update();
         }
+        motor.setPower(0);
     }
+
+   /*public static void goToTargetPosition(DcMotor motor)
+   {
+       while(motor.getTargetPosition()>motor.getCurrentPosition()+20 || motor.getTargetPosition()<motor.getCurrentPosition()-20)
+       {
+           if(motor.getTargetPosition()-motor.getCurrentPosition()>0)
+           {
+               motor.setPower(1);
+           }
+           if(motor.getTargetPosition()-motor.getCurrentPosition()<0)
+           {
+               motor.setPower(-1);
+           }
+
+       }
+   }*/
 }

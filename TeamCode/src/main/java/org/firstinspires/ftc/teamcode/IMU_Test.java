@@ -58,7 +58,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  */
 
 @Autonomous(name="IMU TEST!!", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class IMU_Test extends LinearOpMode {
 
     // Declare OpMode members.

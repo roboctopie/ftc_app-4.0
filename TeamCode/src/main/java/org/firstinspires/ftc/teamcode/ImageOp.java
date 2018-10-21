@@ -55,7 +55,7 @@ import com.vuforia.CameraDevice;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-
+/*
 @TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
 //@Disabled
 public class ImageOp extends LinearOpMode {
@@ -83,7 +83,7 @@ public class ImageOp extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            /*int x=0;
+            int x=0;
             int y=0;
             ImageView imageView = ((ImageView)v);
             Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
@@ -93,7 +93,8 @@ public class ImageOp extends LinearOpMode {
             int greenValue = Color.green(pixel);
 
             telemetry.update();
-            */
+
         }
     }
 }
+*/

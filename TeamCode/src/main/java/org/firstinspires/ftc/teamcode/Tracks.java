@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -59,6 +60,11 @@ public class  Tracks extends LinearOpMode {
     DcMotor RightMotor;
     DcMotor LeftMotor;
     DcMotor Arm;
+    Servo Basket;
+    Servo Collector1;
+    Servo Collector2;
+    float basketPos = 180;
+    float collectorPos = 90;
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -70,6 +76,9 @@ public class  Tracks extends LinearOpMode {
         RightMotor = hardwareMap.dcMotor.get("motor_right");
         LeftMotor = hardwareMap.dcMotor.get("motor_left");
         Arm = hardwareMap.dcMotor.get("arm");
+        Basket = hardwareMap.servo.get("basket");
+        Collector1 = hardwareMap.servo.get("collector1");
+        Collector2 = hardwareMap.servo.get("collector2");
         LeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -98,8 +107,27 @@ public class  Tracks extends LinearOpMode {
             {
                 Arm.setPower(0);
             }
+            if(gamepad1.a&&basketPos<=180)
+            {
+                basketPos=50;
+            }
+            if(gamepad1.b&&basketPos>=0)
+            {
+                basketPos=180;
+            }
+            if(gamepad1.dpad_left)
+            {
+                collectorPos=180;
+            }
+            if(gamepad1.dpad_right)
+            {
+                collectorPos=90;
+            }
 
-
+            Collector1.setPosition(collectorPos/180);
+            Collector2.setPosition((180-collectorPos)/180);
+            Basket.setPosition(basketPos/180);
+            telemetry.addData("basketPos: ",basketPos);
             telemetry.update();
         }
     }

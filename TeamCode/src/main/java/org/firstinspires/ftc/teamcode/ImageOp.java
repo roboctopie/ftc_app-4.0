@@ -29,12 +29,18 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Bitmap;
+import android.graphics.Camera;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.view.View;
+import android.widget.ImageView;
+
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.vuforia.CameraDevice;
 
 
 /**
@@ -43,22 +49,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
  *
- * This particular OpMode just executes a basic Tank Drive Tex`leop for a two wheeled robot
+ * This particular OpMode just executes a basic Tank Drive TeleOp for a two wheeled robot
  * It includes all the skeletal structure that all linear OpModes contain.
  *
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Traccks", group="Linear Opmode")
+@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
 //@Disabled
-public class  Tracks extends LinearOpMode {
+public class ImageOp extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    DcMotor RightMotor;
-    DcMotor LeftMotor;
-    DcMotor Arm;
+
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -67,40 +71,29 @@ public class  Tracks extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        RightMotor = hardwareMap.dcMotor.get("motor_right");
-        LeftMotor = hardwareMap.dcMotor.get("motor_left");
-        Arm = hardwareMap.dcMotor.get("arm");
-        LeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // Most robots need the motor on one side to be reversed to drive forward
-
+        // Reverse the motor that runs backwards when connected directly to the battery
 
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
-
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            RightMotor.setPower(gamepad1.left_stick_y-gamepad1.right_stick_x);
-            LeftMotor.setPower(gamepad1.left_stick_y+gamepad1.right_stick_x);
-            if(gamepad1.dpad_up)
-            {
-                Arm.setPower(0.7);
-            }
-            else if(gamepad1.dpad_down)
-            {
-                Arm.setPower(-0.7);
-            }
-            else
-            {
-                Arm.setPower(0);
-            }
-
+            /*int x=0;
+            int y=0;
+            ImageView imageView = ((ImageView)v);
+            Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+            int pixel = bitmap.getPixel(x,y);
+            int redValue = Color.red(pixel);
+            int blueValue = Color.blue(pixel);
+            int greenValue = Color.green(pixel);
 
             telemetry.update();
+            */
         }
     }
 }

@@ -716,6 +716,7 @@ public class FtcRobotControllerActivity extends Activity
     }
   }
 }
+/*
   public Camera camera;
   private Camera openFrontFacingCamera() {
     int cameraId = -1;
@@ -747,3 +748,4 @@ public class FtcRobotControllerActivity extends Activity
       }
     });
   }
+  */

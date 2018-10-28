@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+/*package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.ftcrobotcontroller.CameraPreview;
 import com.qualcomm.ftcrobotcontroller.FtcRobotControllerActivity;
@@ -12,12 +12,13 @@ import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.util.Log;
-
+*/
 /**
  * TeleOp Mode
  * <p>
  *Enables control of the robot via the gamepad
  */
+/*
 public class ImageOp extends OpMode {
     private Camera camera;
     public CameraPreview preview;
@@ -50,17 +51,19 @@ public class ImageOp extends OpMode {
             looped += 1;
         }
     };
-
+*
     private void convertImage() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         yuvImage.compressToJpeg(new Rect(0, 0, width, height), 0, out);
         byte[] imageBytes = out.toByteArray();
         image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
     }
+    */
     /*
      * Code to run when the op mode is first enabled goes here
      * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
      */
+    /*
     @Override
     public void init() {
         camera = ((FtcRobotControllerActivity)hardwareMap.appContext).camera;
@@ -71,11 +74,12 @@ public class ImageOp extends OpMode {
 
         ((FtcRobotControllerActivity) hardwareMap.appContext).initPreview(camera, this, previewCallback);
     }
-
+   */
     /*
      * This method will be called repeatedly in a loop
      * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#loop()
      */
+    /*
     public int highestColor(int red, int green, int blue) {
         int[] color = {red,green,blue};
         int value = 0;
@@ -120,3 +124,4 @@ public class ImageOp extends OpMode {
         Log.d("DEBUG:",data);
     }
 }
+    */

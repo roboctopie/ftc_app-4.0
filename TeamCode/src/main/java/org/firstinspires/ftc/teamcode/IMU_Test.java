@@ -57,8 +57,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="IMU TEST!!", group="Linear Opmode")
-@Disabled
+@TeleOp(name="IMU TEST!!", group="Linear Opmode")
+//@Disabled
 public class IMU_Test extends LinearOpMode {
 
     // Declare OpMode members.
@@ -103,32 +103,46 @@ public class IMU_Test extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             Orientation angles = imu.getAngularOrientation();
+            Forward(gamepad1.left_stick_y, RightMotor, LeftMotor, imu);
+            Turn(90, RightMotor, LeftMotor, imu);
+            telemetry.addData("x",gamepad1.left_stick_x);
+            telemetry.addData("y",gamepad1.left_stick_y);
+            telemetry.addData("1: ",angles.firstAngle);
+            telemetry.addData("2: ",angles.firstAngle);
+            telemetry.addData("3: ",angles.thirdAngle);
             telemetry.update();
+            break;
         }
     }
-    public static void Turn(float degrees, DcMotor right_Motor,DcMotor left_Motor,BNO055IMU imu)
+    public void Turn(float degrees, DcMotor right_Motor, DcMotor left_Motor, BNO055IMU imu)
     {
         Orientation angles = imu.getAngularOrientation();
-        degrees = (360%(degrees + angles.firstAngle))/360;
-        while(angles.firstAngle>degrees+3 & angles.firstAngle<degrees+3)
+        degrees = (360 % (degrees + angles.firstAngle)) / 360;
+        while(angles.firstAngle > degrees - 13 & angles.firstAngle < degrees + 13)
         {
             angles = imu.getAngularOrientation();
-            right_Motor.setPower((0-angles.firstAngle)-degrees);
-            left_Motor.setPower((angles.firstAngle)-degrees);
+            right_Motor.setPower((0 - angles.firstAngle) - degrees);
+            left_Motor.setPower((angles.firstAngle) - degrees);
+            telemetry.addData("x",gamepad1.left_stick_x);
+            telemetry.addData("y",gamepad1.left_stick_y);
+            telemetry.addData("1: ",angles.firstAngle);
+            telemetry.addData("2: ",angles.firstAngle);
+            telemetry.addData("3: ",angles.thirdAngle);
+            telemetry.update();
         }
 
     }
     public static void Forward(float power, DcMotor right_Motor,DcMotor left_Motor,BNO055IMU imu)
     {
         Orientation angles = imu.getAngularOrientation();
-        power = power/100;
-        float degrees = angles.firstAngle/360;
-        while(angles.firstAngle>degrees+3 & angles.firstAngle<degrees+3)
+        power = power / 100;
+        float degrees = angles.firstAngle / 360;
+        while(angles.firstAngle > degrees + 3 & angles.firstAngle < degrees + 3)
         {
             angles = imu.getAngularOrientation();
-            right_Motor.setPower(power+((0-angles.firstAngle)-degrees));
-            left_Motor.setPower(power+((angles.firstAngle)-degrees));
+            right_Motor.setPower(power + ((0 - angles.firstAngle) - degrees));
+            left_Motor.setPower(power + ((angles.firstAngle) - degrees));
         }
-
     }
+
 }

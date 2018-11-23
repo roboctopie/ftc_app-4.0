@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Traccks", group="Linear Opmode")
+@TeleOp(name="Tracks", group="Linear Opmode")
 //@Disabled
 public class  Tracks extends LinearOpMode {
 
@@ -61,10 +61,9 @@ public class  Tracks extends LinearOpMode {
     DcMotor LeftMotor;
     DcMotor Arm;
     Servo Basket;
-    Servo Collector1;
-    Servo Collector2;
+    DcMotor Collector1;
+    DcMotor Collector2;
     float basketPos = 180;
-    float collectorPos = 90;
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -77,13 +76,12 @@ public class  Tracks extends LinearOpMode {
         LeftMotor = hardwareMap.dcMotor.get("motor_left");
         Arm = hardwareMap.dcMotor.get("arm");
         Basket = hardwareMap.servo.get("basket");
-        Collector1 = hardwareMap.servo.get("collector1");
-        Collector2 = hardwareMap.servo.get("collector2");
-        LeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        Collector1 = hardwareMap.dcMotor.get("collector1");
+        Collector2 = hardwareMap.dcMotor.get("collector2");
 
 
         // Most robots need the motor on one side to be reversed to drive forward
-
+        RightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -93,39 +91,43 @@ public class  Tracks extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            RightMotor.setPower(gamepad1.left_stick_y-gamepad1.right_stick_x);
-            LeftMotor.setPower(gamepad1.left_stick_y+gamepad1.right_stick_x);
-            if(gamepad1.dpad_up)
+            if(gamepad1.right_stick_x==0)
             {
-                Arm.setPower(0.7);
+                LeftMotor.setPower(gamepad1.left_stick_y);
+                RightMotor.setPower(gamepad1.left_stick_y);
             }
-            else if(gamepad1.dpad_down)
+            else if(gamepad1.right_stick_x>0)
             {
-                Arm.setPower(-0.7);
+                LeftMotor.setPower(-gamepad1.right_stick_x);
+                RightMotor.setPower(gamepad1.right_stick_x);
+            }
+            else if(gamepad1.right_stick_x<0)
+            {
+                LeftMotor.setPower(-gamepad1.right_stick_x);
+                RightMotor.setPower(gamepad1.right_stick_x);
+            }
+            if(gamepad1.right_trigger>0)
+            {
+                Arm.setPower(gamepad1.right_trigger);
+            }
+            else if(gamepad1.left_trigger>0)
+            {
+                Arm.setPower(-gamepad1.left_trigger);
             }
             else
             {
                 Arm.setPower(0);
             }
-            if(gamepad1.a&&basketPos<=180)
+            if(gamepad1.y&&basketPos<=180)
             {
                 basketPos=50;
             }
-            if(gamepad1.b&&basketPos>=0)
+            if(gamepad1.x&&basketPos>=0)
             {
                 basketPos=180;
             }
-            if(gamepad1.dpad_left)
-            {
-                collectorPos=180;
-            }
-            if(gamepad1.dpad_right)
-            {
-                collectorPos=90;
-            }
-
-            Collector1.setPosition(collectorPos/180);
-            Collector2.setPosition((180-collectorPos)/180);
+            Collector1.setPower(gamepad2.right_stick_y/2);
+            Collector2.setPower(gamepad2.left_stick_y/2);
             Basket.setPosition(basketPos/180);
             telemetry.addData("basketPos: ",basketPos);
             telemetry.update();

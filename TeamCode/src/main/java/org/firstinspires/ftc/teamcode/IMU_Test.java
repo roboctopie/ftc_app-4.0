@@ -100,7 +100,6 @@ public class IMU_Test extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             Orientation angles = imu.getAngularOrientation();
             Forward(gamepad1.left_stick_y, RightMotor, LeftMotor, imu);
@@ -141,7 +140,7 @@ public class IMU_Test extends LinearOpMode {
         {
             angles = imu.getAngularOrientation();
             right_Motor.setPower(power + ((0 - angles.firstAngle) - degrees));
-            left_Motor.setPower(power + ((angles.firstAngle) - degrees));
+            //left_Motor.setPower(power + ((angles.firstAngle)angles  - degrees));
         }
     }
 

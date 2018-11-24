@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+import java.util.Random;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
@@ -104,11 +104,11 @@ public class IMU_Test extends LinearOpMode {
             Orientation angles = imu.getAngularOrientation();
             Forward(gamepad1.left_stick_y, RightMotor, LeftMotor, imu);
             Turn(90, RightMotor, LeftMotor, imu);
-            telemetry.addData("x",gamepad1.left_stick_x);
-            telemetry.addData("y",gamepad1.left_stick_y);
-            telemetry.addData("1: ",angles.firstAngle);
-            telemetry.addData("2: ",angles.firstAngle);
-            telemetry.addData("3: ",angles.thirdAngle);
+            telemetry.addData("Gamepad 1 Left Stick X", gamepad1.left_stick_x);
+            telemetry.addData("Gamepad 1 Left Stick Y", gamepad1.left_stick_y);
+            telemetry.addData("IMU Angle 1", angles.firstAngle);
+            telemetry.addData("IMU Angle 2", angles.secondAngle);
+            telemetry.addData("IMU Angle 3", angles.thirdAngle);
             telemetry.update();
             break;
         }
@@ -122,11 +122,11 @@ public class IMU_Test extends LinearOpMode {
             angles = imu.getAngularOrientation();
             right_Motor.setPower((0 - angles.firstAngle) - degrees);
             left_Motor.setPower((angles.firstAngle) - degrees);
-            telemetry.addData("x",gamepad1.left_stick_x);
-            telemetry.addData("y",gamepad1.left_stick_y);
-            telemetry.addData("1: ",angles.firstAngle);
-            telemetry.addData("2: ",angles.firstAngle);
-            telemetry.addData("3: ",angles.thirdAngle);
+            telemetry.addData("Gamepad 1 Left Stick X", gamepad1.left_stick_x);
+            telemetry.addData("Gamepad 1 Left Stick Y", gamepad1.left_stick_y);
+            telemetry.addData("IMU Angle 1", angles.firstAngle);
+            telemetry.addData("IMU Angle 2", angles.secondAngle);
+            telemetry.addData("IMU Angle 3", angles.thirdAngle);
             telemetry.update();
         }
 

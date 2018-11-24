@@ -137,21 +137,21 @@ public class  Tracks extends LinearOpMode {
                 Arm.setPower(0);
                 telemetry.addData("Arm Power", "0.0");
             }
-            if(gamepad1.y)
+            if(gamepad2.y)
             {
                 basketPos=50;
             }
-            if(gamepad1.x)
+            if(gamepad2.x)
             {
                 basketPos=180;
             }
-            if(gamepad1.left_bumper)
+            if(gamepad2.b)
             {
                 basketPos=160;
             }
-            Collector1.setPower(gamepad2.right_stick_y/2);
-            telemetry.addData("Collector Motor Power", gamepad2.right_stick_y/2);
-            Collector2.setPower(gamepad2.left_stick_y/2);
+            Collector1.setPower(gamepad2.right_stick_y*0.75);
+            telemetry.addData("Collector Motor Power", gamepad2.right_stick_y*0.75);
+            Collector2.setPower(gamepad2.left_stick_y);
             telemetry.addData("Collector Brushes Power", gamepad2.left_stick_y/2);
             Basket.setPosition(basketPos/180);
             telemetry.addData("Left Motor Position", LeftMotor.getCurrentPosition());
@@ -161,18 +161,18 @@ public class  Tracks extends LinearOpMode {
             telemetry.addData("Collector Brushes Position", Collector2.getCurrentPosition());
             telemetry.addData("Basket Position", basketPos/180);
             telemetry.addData("Gamepad 1 Type", gamepad1.type());
-            telemetry.addData("Gamepad 1 B Pressed", gamepad1.b);
-            telemetry.addData("Gamepad 1 X Pressed", gamepad1.x);
-            telemetry.addData("Gamepad 1 Y Pressed", gamepad1.y);
-            telemetry.addData("Gamepad 1 LB Pressed", gamepad1.left_bumper);
-            telemetry.addData("Gamepad 1 LT Pressed", gamepad1.left_trigger);
-            telemetry.addData("Gamepad 1 RT Pressed", gamepad1.right_trigger);
+            telemetry.addData("Gamepad 1 LB Position", gamepad1.left_bumper);
+            telemetry.addData("Gamepad 1 LT Position", gamepad1.left_trigger);
+            telemetry.addData("Gamepad 1 RT Position", gamepad1.right_trigger);
             telemetry.addData("Gamepad 1 Left Stick Y Position", gamepad1.left_stick_y);
             telemetry.addData("Gamepad 1 Right Stick X Position", gamepad1.right_stick_x);
             telemetry.addData("Gamepad 2 Type", gamepad2.type());
-            telemetry.addData("Gamepad 2 Left Stick Y Position", gamepad1.left_stick_y);
-            telemetry.addData("Gamepad 2 Right Stick Y Position", gamepad1.right_stick_y);
-            telemetry.addData("Randomness", rand.nextInt(42) + 1);
+            telemetry.addData("Gamepad 2 B Pressed", gamepad2.b);
+            telemetry.addData("Gamepad 2 X Pressed", gamepad2.x);
+            telemetry.addData("Gamepad 2 Y Pressed", gamepad2.y);
+            telemetry.addData("Gamepad 2 Left Stick Y Position", gamepad2.left_stick_y);
+            telemetry.addData("Gamepad 2 Right Stick Y Position", gamepad2.right_stick_y);
+            telemetry.addData("Randomness", (rand.nextInt(420) + 1)/10);
             telemetry.update();
         }
     }

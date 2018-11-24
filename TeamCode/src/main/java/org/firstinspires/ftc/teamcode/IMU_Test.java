@@ -104,10 +104,8 @@ public class IMU_Test extends LinearOpMode {
 
         while (opModeIsActive()) {
             Orientation angles = imu.getAngularOrientation();
-            if(gamepad1.left_bumper) Turn(90, RightMotor, LeftMotor, imu);
+            if(gamepad1.left_bumper)  Turn(90 , RightMotor, LeftMotor, imu);
             if(gamepad1.right_bumper) Turn(-90, RightMotor, LeftMotor, imu);
-            telemetry.addData("Gamepad 1 Left Stick X", gamepad1.left_stick_x);
-            telemetry.addData("Gamepad 1 Left Stick Y", gamepad1.left_stick_y);
             telemetry.addData("IMU Angle 1", angles.firstAngle);
             telemetry.addData("IMU Angle 2", angles.secondAngle);
             telemetry.addData("IMU Angle 3", angles.thirdAngle);
@@ -117,19 +115,25 @@ public class IMU_Test extends LinearOpMode {
     public void Turn(float degrees, DcMotor right_Motor, DcMotor left_Motor, BNO055IMU imu)
     {
         Orientation angles = imu.getAngularOrientation();
-        degrees = (360 % (degrees + angles.firstAngle));
-        float turn =angles.firstAngle - degrees;
-        while(angles.firstAngle > degrees - 13 & angles.firstAngle < degrees + 13 & opModeIsActive())
+        float degreesToTurn = ((degrees + (angles.firstAngle-180)) % 360);
+        float turn; //= degreesToTurn - angles.firstAngle;
+
+        while(angles.firstAngle > degreesToTurn + 5 | angles.firstAngle < degreesToTurn - 5 & opModeIsActive())
         {
+            turn         = (degreesToTurn - angles.firstAngle)*8;
             angles = imu.getAngularOrientation();
-            if(turn != 0) right_Motor.setPower(-(turn/360+((turn/abs(turn))*0.5)));
-            if(turn != 0) left_Motor.setPower(turn/360+((turn/abs(turn))*0.5));
-            telemetry.addData("IMU Angle 1", angles.firstAngle);
-            telemetry.addData("IMU Angle 2", angles.secondAngle);
-            telemetry.addData("IMU Angle 3", angles.thirdAngle);
-            telemetry.addData("Degrees Variable",degrees);
+
+            if(turn != 0) right_Motor.setPower(-(turn / 360 + ((turn / abs(turn)) * 0.3)));
+            if(turn != 0)  left_Motor.setPower(  turn / 360 + ((turn / abs(turn)) * 0.3));
+
+            telemetry.addData("IMU Angle 1",      angles.firstAngle);
+            telemetry.addData("IMU Angle 2",      angles.secondAngle);
+            telemetry.addData("IMU Angle 3",      angles.thirdAngle);
+            telemetry.addData("Degrees Variable", degreesToTurn);
             telemetry.update();
         }
+        left_Motor.setPower(0);
+        right_Motor.setPower(0);
 
     }
     public void Forward(float power, DcMotor right_Motor,DcMotor left_Motor,BNO055IMU imu)

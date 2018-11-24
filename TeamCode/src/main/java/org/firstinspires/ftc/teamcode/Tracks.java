@@ -151,7 +151,7 @@ public class  Tracks extends LinearOpMode {
             }
             Collector1.setPower(gamepad2.right_stick_y*0.75);
             telemetry.addData("Collector Motor Power", gamepad2.right_stick_y*0.75);
-            Collector2.setPower(gamepad2.left_stick_y);
+            Collector2.setPower(gamepad2.left_stick_y/4);
             telemetry.addData("Collector Brushes Power", gamepad2.left_stick_y/2);
             Basket.setPosition(basketPos/180);
             telemetry.addData("Left Motor Position", LeftMotor.getCurrentPosition());
